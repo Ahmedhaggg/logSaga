@@ -51,7 +51,7 @@ src/
 │   ├── utils/              # Helper functions
 │   └── interfaces/         # Shared contracts
 ├── modules/                 # Feature modules
-│   ├── auth/               # Authentication and user management
+│   ├── users/               # Authentication and user management
 │   ├── services/           # Service definition and user assignment
 │   ├── api-keys/           # API key management
 │   ├── logs/               # Log ingestion and querying
