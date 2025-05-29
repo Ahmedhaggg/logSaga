@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: log-saga
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: mydb
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: nestjs-app
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - '3000:3000'
+  #   environment:
+  #     DATABASE_URL: postgresql://admin:secret@postgres:5432/mydb
+  #   command: npm run start:dev # or start:prod for production build
+  #   volumes:
+  #     - .:/usr/src/app
+  #     - /usr/src/app/node_modules
+
+volumes:
+  postgres_data:

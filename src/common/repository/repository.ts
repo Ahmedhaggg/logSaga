@@ -58,12 +58,11 @@ export class BaseRepository<T extends BaseEntity>
     return result.affected !== 0;
   }
 
-  async updateById(
-    id: string,
-    data: QueryDeepPartialEntity<T>,
-  ): Promise<T | null> {
-    await this.repository.update(id, data);
-    return this.findById(id);
+  async updateById(id: string, data: QueryDeepPartialEntity<T>): Promise<void> {
+    const result = await this.repository.update(id, data);
+
+    if (result.affected == 0) throw new Error();
+    return;
   }
 
   async create(data: DeepPartial<T>): Promise<T> {
@@ -74,5 +73,29 @@ export class BaseRepository<T extends BaseEntity>
     return this.repository.count({
       where: query as FindOptionsWhere<T>,
     });
+  }
+
+  async update(
+    query: FindOptionsWhere<T>,
+    data: QueryDeepPartialEntity<T>,
+  ): Promise<boolean> {
+    const result = await this.repository.update(query, data);
+    return (result.affected || 0) > 0 ? true : false;
+  }
+  async clear() {
+    const tableName = this.repository.metadata.tableName;
+    return this.repository.manager.query(
+      `TRUNCATE TABLE "${tableName}" RESTART IDENTITY CASCADE;`,
+    );
+  }
+
+  async findOneOrThrow(query: FindOneQuery<T>): Promise<T> {
+    const result = await this.repository.findOne({
+      where: query as FindOptionsWhere<T>,
+    });
+
+    if (!result) throw new Error("Row isn't Found");
+
+    return result;
   }
 }

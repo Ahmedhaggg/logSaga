@@ -120,8 +120,11 @@ class User {
   @Column({ enum: ['Admin', 'Viewer'] })
   role: string;
 
-  @Column({ type: 'jsonb', nullable: true })
-  metadata: Record<string, any>;
+  @Column({ type: 'text' })
+  photo: string;
+
+  @CreateDateColumn({ default: null })
+  lastLogin?: Date;
 
   @Column({ default: false })
   isDeleted: boolean;
@@ -129,9 +132,9 @@ class User {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToMany(() => Service, (service) => service.users)
-  @JoinTable({ name: 'user_services' })
-  services: Service[];
+  // @ManyToMany(() => Service, (service) => service.users)
+  // @JoinTable({ name: 'user_services' })
+  // services: Service[];
 }
 ```
 

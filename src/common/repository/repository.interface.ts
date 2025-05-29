@@ -16,7 +16,7 @@ export interface IBaseRepository<T> {
   find(query: FindQuery<T>, columns?: Columns<T>): Promise<T[]>;
   findById(id: string, columns?: Columns<T>): Promise<T | null>;
   deleteById(id: string): Promise<boolean>;
-  updateById(id: string, data: QueryDeepPartialEntity<T>): Promise<T | null>;
+  updateById(id: string, data: QueryDeepPartialEntity<T>): Promise<void>;
   create(data: DeepPartial<T>): Promise<T>;
   count(query: FindOneQuery<T>): Promise<number>;
 }
