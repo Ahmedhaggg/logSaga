@@ -26,8 +26,9 @@
       "@types/*": ["common/types/*"],
       "@shared/*": ["shared/*"]
     },
-    "typeRoots": ["./node_modules/@types", "src/common/types/global.d.ts"],
+    "typeRoots": ["./node_modules/@types", "src/common/types"],
     "types": ["jest", "node", "express"],
     "resolveJsonModule": true
-  }
+  },
+  "include": ["src"]
 }

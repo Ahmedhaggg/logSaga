@@ -9,8 +9,6 @@ import { BaseRepository } from '@common/repository/repository';
 import { RefreshTokenRepository } from '../repositories/refreshToken.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtService } from '@nestjs/jwt';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import * as crypto from 'crypto';
 import { createTestDatabaseModule } from '@common/test/database';
 import {
   seedGoogleUserInfo,
@@ -30,10 +28,7 @@ describe('AuthService (Integration)', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        createTestDatabaseModule(),
-        TypeOrmModule.forFeature([User, RefreshToken]),
-      ],
+      imports: [...createTestDatabaseModule(User, RefreshToken)],
       providers: [
         UserRepository,
         AuthService,

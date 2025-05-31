@@ -4,12 +4,11 @@ import {
   Column,
   ManyToOne,
   CreateDateColumn,
-  BaseEntity,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
 @Entity()
-export class RefreshToken extends BaseEntity {
+export class RefreshToken {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -26,7 +25,7 @@ export class RefreshToken extends BaseEntity {
   expiresAt: Date;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt?: Date;
 
   @Column({ default: false })
   isRevoked: boolean;

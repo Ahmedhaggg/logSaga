@@ -13,7 +13,7 @@ export type Columns<T> = (keyof T)[];
 
 export interface IBaseRepository<T> {
   findOne(query: FindOneQuery<T>, columns?: Columns<T>): Promise<T | null>;
-  find(query: FindQuery<T>, columns?: Columns<T>): Promise<T[]>;
+  find(query?: FindQuery<T>, columns?: Columns<T>): Promise<T[]>;
   findById(id: string, columns?: Columns<T>): Promise<T | null>;
   deleteById(id: string): Promise<boolean>;
   updateById(id: string, data: QueryDeepPartialEntity<T>): Promise<void>;
