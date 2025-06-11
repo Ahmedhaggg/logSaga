@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class User extends BaseEntity {
+export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -28,7 +28,7 @@ export class User extends BaseEntity {
   isDeleted: boolean;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt?: Date;
 
   @Column({
     type: 'enum',

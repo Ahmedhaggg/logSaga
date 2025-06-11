@@ -1,8 +1,12 @@
+import { User } from '@module/users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 import { AppConfigModule } from '@shared/config/config.module';
 import { AppConfigService } from '@shared/config/config.service';
 
-export const createTestDatabaseModule = () =>
+export const createTestDatabaseModule = (
+  ...entities: EntityClassOrSchema[]
+) => [
   TypeOrmModule.forRootAsync({
     imports: [AppConfigModule],
     inject: [AppConfigService],
@@ -19,4 +23,6 @@ export const createTestDatabaseModule = () =>
       logging: false,
       entities: ['dist/**/entities/*.entity.js'],
     }),
-  });
+  }),
+  TypeOrmModule.forFeature(entities),
+];

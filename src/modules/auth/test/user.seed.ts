@@ -3,8 +3,9 @@ import { GoogleUserInfo } from '../types/googleAuthUser.type';
 import { User } from '@module/users/entities/user.entity';
 import * as crypto from 'crypto';
 import { RefreshToken } from '../entities/refreshToken.entity';
+import { SaveOptions, RemoveOptions } from 'typeorm';
 
-export const seedUserData = (status: User['status']): Partial<User> => ({
+export const seedUserData = (status: User['status']): Omit<User, 'id'> => ({
   email: faker.internet.email(),
   status,
   isDeleted: false,
@@ -23,9 +24,10 @@ export const seedGoogleUserInfo = (): GoogleUserInfo => ({
 export const seedRefreshTokenData = (
   userId: string,
   token: string,
-): Partial<RefreshToken> => ({
+): Omit<RefreshToken, 'id'> => ({
   userId,
   token: crypto.createHash('sha256').update(token).digest('hex'),
   expiresAt: new Date(Date.now() + 100000),
   isRevoked: false,
+  user: new User(),
 });

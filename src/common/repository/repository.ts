@@ -4,6 +4,7 @@ import {
   BaseEntity,
   FindOptionsSelect,
   DeepPartial,
+  ObjectLiteral,
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import {
@@ -13,7 +14,7 @@ import {
   IBaseRepository,
 } from './repository.interface';
 
-export class BaseRepository<T extends BaseEntity>
+export class BaseRepository<T extends ObjectLiteral>
   implements IBaseRepository<T>
 {
   constructor(protected readonly repository: Repository<T>) {}
@@ -37,7 +38,10 @@ export class BaseRepository<T extends BaseEntity>
     });
   }
 
-  async find(query: FindQuery<T>, columns?: Columns<T>): Promise<T[]> {
+  async find(
+    query: FindQuery<T> = { where: {}, limit: undefined, offset: undefined },
+    columns?: Columns<T>,
+  ): Promise<T[]> {
     return this.repository.find({
       where: query.where as FindOptionsWhere<T>,
       take: query.limit,
