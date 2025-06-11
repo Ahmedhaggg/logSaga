@@ -8,9 +8,8 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { AppConfigModule } from '@shared/config/config.module';
 import { AppConfigService } from '@shared/config/config.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from 'modules/auth/auth.module';
+import { ServiceModule } from './modules/services/service.module';
 
 @Module({
   imports: [
@@ -42,6 +41,7 @@ import { AuthModule } from 'modules/auth/auth.module';
     AlertsModule,
     MetricsModule,
     NotificationsModule,
+    ServiceModule,
   ],
   controllers: [],
   providers: [AppConfigService],

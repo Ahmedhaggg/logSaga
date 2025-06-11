@@ -3,7 +3,6 @@ import { GoogleUserInfo } from '../types/googleAuthUser.type';
 import { User } from '@module/users/entities/user.entity';
 import * as crypto from 'crypto';
 import { RefreshToken } from '../entities/refreshToken.entity';
-import { SaveOptions, RemoveOptions } from 'typeorm';
 
 export const seedUserData = (status: User['status']): Omit<User, 'id'> => ({
   email: faker.internet.email(),
@@ -11,6 +10,7 @@ export const seedUserData = (status: User['status']): Omit<User, 'id'> => ({
   isDeleted: false,
   role: 'VIEWER',
   photo: faker.image.url(),
+  services: [],
 });
 
 export const seedGoogleUserInfo = (): GoogleUserInfo => ({

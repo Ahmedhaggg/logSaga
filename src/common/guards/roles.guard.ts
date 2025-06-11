@@ -14,7 +14,7 @@ import { JwtPayload } from '@common/types/jwtPayload.type';
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  canActivate(context: ExecutionContext): Promise<boolean> | boolean {
     const requiredRoles = this.reflector.get<Role[]>(
       ROLES_KEY,
       context.getHandler(),
