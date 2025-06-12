@@ -1,10 +1,13 @@
 import { Role } from '@common/types/user.type';
+import { Service } from '@module/services/entities/service.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   BaseEntity,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -36,4 +39,8 @@ export class User {
     default: 'INVITED',
   })
   status: 'INVITED' | 'ACTIVE';
+
+  @ManyToMany(() => Service, (service) => service.users)
+  @JoinTable({ name: 'user_services' })
+  services: Service[];
 }
